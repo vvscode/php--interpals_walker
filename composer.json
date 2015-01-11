@@ -1,0 +1,13 @@
+{
+    "name": "vvs/interpals_walker",
+    "description": "'Interpals.net walker script'",
+    "authors": [
+        {
+            "name": "VVS",
+            "email": "v.vanchuk@tut.by"
+        }
+    ],
+    "require": {
+      "curl/curl": "1.2.*"
+    }
+}
