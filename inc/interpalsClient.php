@@ -28,7 +28,7 @@ class InterpalsClient
     public function isLoggedIn($reload = false)
     {
         if($reload OR empty($this->curl->response)) {
-            $this->curl->get('http://www.interpals.net/index.php');
+            $this->visitPage('http://www.interpals.net/index.php');
         }
         $isLoggedIn = substr_count($this->curl->response, '<input type="text" id="topLoginEmail" name="login"') == 0;
         $this->debugMsg(sprintf('Check is logged in: %b', $isLoggedIn));
@@ -47,6 +47,25 @@ class InterpalsClient
 
         $this->debugMsg(sprintf('Try login with result: %b', $this->isLoggedIn()));
         return $this;
+    }
+
+    public function getUsersList(array $filter = [])
+    {
+        $url = 'http://www.interpals.net/online.php?order=updated&age1=24&age2=38&dir=desc&offset=-1';
+        $this->visitPage($url);
+        preg_match_all('%<div class=olUserDetails>.+?<a href=\'/(.+?)\'%s', $this->curl->response, $arr, PREG_PATTERN_ORDER);
+        $users = $arr[1];
+
+        array_walk($users, function(&$url) {
+            $url = 'http://www.interpals.net/'.$url;
+        });
+        return array_slice($users, 0 , 100);
+    }
+
+    public function visitPage($url)
+    {
+        $this->debugMsg('Visit '.$url);
+        $this->curl->get($url);
     }
 
     private function debugMsg($str)
