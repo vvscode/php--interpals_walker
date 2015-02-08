@@ -1,0 +1,3 @@
+<?php
+define('INTERPALS_LOGIN', '***');
+define('INTERPALS_PASSWORD', '***');
