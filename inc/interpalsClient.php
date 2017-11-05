@@ -51,7 +51,7 @@ class InterpalsClient
 
     public function getUsersList(array $filter = [])
     {
-        $url = 'https://www.interpals.net/app/online?age1=24&age2=38&sort=last_login&order=desc&offset=-1';
+        $url = 'https://www.interpals.net/app/online?age1=18&age2=64&sort=last_login&order=desc&offset=-1';
         $this->visitPage($url);
         preg_match_all('%<a profile.+?href=\"/(.+?)\"%s', $this->curl->response, $arr, PREG_PATTERN_ORDER);
         $users = $arr[1];
@@ -59,7 +59,8 @@ class InterpalsClient
         array_walk($users, function(&$url) {
             $url = 'http://www.interpals.net/'.$url;
         });
-        return array_slice($users, 0 , 100);
+        return $users;
+        // return array_slice($users, 0 , 100);
     }
 
     public function visitPage($url)
