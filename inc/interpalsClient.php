@@ -51,7 +51,7 @@ class InterpalsClient
 
     public function getUsersList(array $filter = [])
     {
-        $url = 'http://www.interpals.net/app/online?order=updated&age1=24&age2=38&dir=desc&offset=-1';
+        $url = 'https://www.interpals.net/app/online?age1=24&age2=38&sort=last_login&order=desc&offset=-1';
         $this->visitPage($url);
         preg_match_all('%<a profile.+?href=\"/(.+?)\"%s', $this->curl->response, $arr, PREG_PATTERN_ORDER);
         $users = $arr[1];
