@@ -53,7 +53,7 @@ class InterpalsClient
     {
         $url = 'http://www.interpals.net/app/online?order=updated&age1=24&age2=38&dir=desc&offset=-1';
         $this->visitPage($url);
-        preg_match_all('%<a profile .+?href=\"/(.+?)\"%s', $this->curl->response, $arr, PREG_PATTERN_ORDER);
+        preg_match_all('%<a profile.+?href=\"/(.+?)\"%s', $this->curl->response, $arr, PREG_PATTERN_ORDER);
         $users = $arr[1];
 
         array_walk($users, function(&$url) {
